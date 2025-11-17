@@ -21,6 +21,8 @@ set(${PROJECT_NAME}_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/IRenderDevice.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/VulkanHelpers.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/IEvent.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/Handle.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/HandleTypeRegistry.hpp
 )
 foreach(header ${${PROJECT_NAME}_HEADERS})
     target_sources(${PROJECT_NAME} INTERFACE $<BUILD_INTERFACE:${header}>)
