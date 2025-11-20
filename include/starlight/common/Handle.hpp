@@ -27,7 +27,7 @@ struct Handle
     {
         return id;
     }
-    uint32_t getID() const
+    const uint32_t &getID() const
     {
         return id;
     }
@@ -35,7 +35,7 @@ struct Handle
     {
         return type;
     }
-    uint16_t getType() const
+    const uint16_t &getType() const
     {
         return type;
     }
