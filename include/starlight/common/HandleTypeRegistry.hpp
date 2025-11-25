@@ -1,73 +1,35 @@
+
 #pragma once
 
 #include <cassert>
+#include <cstdint>
 #include <mutex>
 #include <optional>
-#include <stdint.h>
-#include <string>
-#include <unordered_map>
+#include <string_view>
+
+#include <absl/container/flat_hash_map.h>
 
 namespace star::common
 {
 namespace special_types
 {
-constexpr const std::string ShaderTypeName()
-{
-    return "star::shader";
-}
-constexpr const std::string ObjectTypeName()
-{
-    return "star::object";
-}
-constexpr const std::string TextureTypeName()
-{
-    return "star::texture";
-}
-constexpr const std::string MaterialTypeName()
-{
-    return "star::material";
-}
-constexpr const std::string LightTypeName()
-{
-    return "star::light";
-}
-constexpr const std::string MapTypeName()
-{
-    return "star::map";
-}
-constexpr const std::string BufferTypeName()
-{
-    return "star::buffer";
-}
-constexpr const std::string PipelineTypeName()
-{
-    return "star::pipeline";
-}
-constexpr const std::string SemaphoreTypeName()
-{
-    return "star::semaphore";
-}
-constexpr const std::string FenceTypeName()
-{
-    return "star::fence";
-}
-constexpr const std::string DeviceTypeName()
-{
-    return "star::device";
-}
-constexpr const std::string SubscriberTypeName()
-{
-    return "star::subscriber";
-}
-constexpr const std::string ServiceCalleeTypeName()
-{
-    return "star::service_callee";
-}
-constexpr const std::string CommandBufferTypeName()
-{
-    return "star::command_buffer";
-}
+// Use constexpr std::string_view instead of std::string
+constexpr std::string_view ShaderTypeName = "star::shader";
+constexpr std::string_view ObjectTypeName = "star::object";
+constexpr std::string_view TextureTypeName = "star::texture";
+constexpr std::string_view MaterialTypeName = "star::material";
+constexpr std::string_view LightTypeName = "star::light";
+constexpr std::string_view MapTypeName = "star::map";
+constexpr std::string_view BufferTypeName = "star::buffer";
+constexpr std::string_view PipelineTypeName = "star::pipeline";
+constexpr std::string_view SemaphoreTypeName = "star::semaphore";
+constexpr std::string_view FenceTypeName = "star::fence";
+constexpr std::string_view DeviceTypeName = "star::device";
+constexpr std::string_view SubscriberTypeName = "star::subscriber";
+constexpr std::string_view ServiceCalleeTypeName = "star::service_callee";
+constexpr std::string_view CommandBufferTypeName = "star::command_buffer";
 } // namespace special_types
+
 class HandleTypeRegistry
 {
   public:
@@ -77,15 +39,15 @@ class HandleTypeRegistry
     }
 
     // Returns a unique dynamic type ID
-    uint16_t registerType(const std::string &name)
+    uint16_t registerType(std::string_view name)
     {
         std::lock_guard lock(m_mutex);
 
         if (!doContains(name))
         {
             uint16_t type = m_nextType++;
-            m_typeToTypeName[type] = name;
-            m_typeNameToType[name] = type;
+            m_typeToTypeName[type] = std::string(name); // store as std::string internally
+            m_typeNameToType[std::string(name)] = type;
             return type;
         }
 
@@ -100,28 +62,30 @@ class HandleTypeRegistry
         return (it != m_typeToTypeName.end()) ? std::make_optional(it->second) : std::nullopt;
     }
 
-    std::optional<uint16_t> getType(const std::string &name) const
+    std::optional<uint16_t> getType(std::string_view name) const
     {
         std::lock_guard lock(m_mutex);
 
         return doGetType(name);
     }
 
-    uint16_t getTypeGuaranteedExist(const std::string &name) const
+    uint16_t getTypeGuaranteedExist(std::string_view name) const
     {
         std::lock_guard lock(m_mutex);
 
         assert(doContains(name));
-        return m_typeNameToType.find(name)->second;
+        return m_typeNameToType.find(std::string(name))->second;
     }
 
-    bool contains(const std::string &name) const{
+    bool contains(std::string_view name) const
+    {
         std::lock_guard lock(m_mutex);
 
         return doContains(name);
     }
 
-    bool contains(const uint16_t &typeID) const{
+    bool contains(const uint16_t &typeID) const
+    {
         std::lock_guard lock(m_mutex);
 
         return doContains(typeID);
@@ -136,12 +100,12 @@ class HandleTypeRegistry
   private:
     mutable std::mutex m_mutex;
     uint16_t m_nextType = 1; // 0 reserved for invalid
-    std::unordered_map<uint16_t, std::string> m_typeToTypeName;
-    std::unordered_map<std::string, uint16_t> m_typeNameToType;
+    absl::flat_hash_map<uint16_t, std::string> m_typeToTypeName;
+    absl::flat_hash_map<std::string, uint16_t> m_typeNameToType;
 
-    bool doContains(const std::string &name) const
+    bool doContains(std::string_view name) const
     {
-        return m_typeNameToType.contains(name);
+        return m_typeNameToType.contains(std::string(name));
     }
 
     bool doContains(const uint16_t &type) const
@@ -149,29 +113,30 @@ class HandleTypeRegistry
         return m_typeToTypeName.contains(type);
     }
 
-    std::optional<uint16_t> doGetType(const std::string &name) const
+    std::optional<uint16_t> doGetType(std::string_view name) const
     {
-        auto it = m_typeNameToType.find(name);
+        auto it = m_typeNameToType.find(std::string(name));
 
         return (it != m_typeNameToType.end()) ? std::make_optional<uint16_t>(it->second) : std::nullopt;
     }
 
     void initSpecialTypes()
     {
-        registerType(special_types::ShaderTypeName());
-        registerType(special_types::ObjectTypeName());
-        registerType(special_types::TextureTypeName());
-        registerType(special_types::MaterialTypeName());
-        registerType(special_types::LightTypeName());
-        registerType(special_types::MapTypeName());
-        registerType(special_types::BufferTypeName());
-        registerType(special_types::PipelineTypeName());
-        registerType(special_types::SemaphoreTypeName());
-        registerType(special_types::FenceTypeName());
-        registerType(special_types::DeviceTypeName());
-        registerType(special_types::SubscriberTypeName());
-        registerType(special_types::ServiceCalleeTypeName());
-        registerType(special_types::CommandBufferTypeName());
+        using namespace special_types;
+        registerType(ShaderTypeName);
+        registerType(ObjectTypeName);
+        registerType(TextureTypeName);
+        registerType(MaterialTypeName);
+        registerType(LightTypeName);
+        registerType(MapTypeName);
+        registerType(BufferTypeName);
+        registerType(PipelineTypeName);
+        registerType(SemaphoreTypeName);
+        registerType(FenceTypeName);
+        registerType(DeviceTypeName);
+        registerType(SubscriberTypeName);
+        registerType(ServiceCalleeTypeName);
+        registerType(CommandBufferTypeName);
     }
 };
 
