@@ -33,7 +33,10 @@ endforeach()
 target_include_directories(${PROJECT_NAME} INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
+    $<INSTALL_INTERFACE:${absl_INCLUDE_DIR}>
 )
+
+target_link_libraries(${PROJECT_NAME} INTERFACE absl::flat_hash_map)
 
 # Provide a namespaced ALIAS for in-tree consumers
 add_library(Starlight::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
