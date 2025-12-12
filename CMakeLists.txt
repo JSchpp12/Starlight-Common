@@ -25,6 +25,10 @@ set(${PROJECT_NAME}_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/Handle.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/HandleTypeRegistry.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/Renderer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/IDeviceContext.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/EventBus.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/SubscriberCallbackInfo.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/helper/CastHelpers.hpp
 )
 foreach(header ${${PROJECT_NAME}_HEADERS})
     target_sources(${PROJECT_NAME} INTERFACE $<BUILD_INTERFACE:${header}>)

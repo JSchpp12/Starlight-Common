@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <cassert>
@@ -28,6 +27,7 @@ constexpr std::string_view DeviceTypeName = "star::device";
 constexpr std::string_view SubscriberTypeName = "star::subscriber";
 constexpr std::string_view ServiceCalleeTypeName = "star::service_callee";
 constexpr std::string_view CommandBufferTypeName = "star::command_buffer";
+constexpr std::string_view GetImageTypeName = "star::Image";
 } // namespace special_types
 
 class HandleTypeRegistry
@@ -74,7 +74,7 @@ class HandleTypeRegistry
         std::lock_guard lock(m_mutex);
 
         assert(doContains(name));
-        return m_typeNameToType.find(std::string(name))->second;
+        return m_typeNameToType.at(std::string(name));
     }
 
     bool contains(std::string_view name) const
@@ -137,6 +137,7 @@ class HandleTypeRegistry
         registerType(SubscriberTypeName);
         registerType(ServiceCalleeTypeName);
         registerType(CommandBufferTypeName);
+        registerType(GetImageTypeName);
     }
 };
 
