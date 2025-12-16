@@ -1,7 +1,7 @@
 #pragma once
 
-#include <starlight/common/Handle.hpp>
-#include <starlight/common/IEvent.hpp>
+#include <star_common/Handle.hpp>
+#include <star_common/IEvent.hpp>
 
 #include <cassert>
 #include <functional>

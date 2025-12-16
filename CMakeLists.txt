@@ -19,16 +19,16 @@ find_package(absl CONFIG REQUIRED)
 add_library(${PROJECT_NAME} INTERFACE)
 
 set(${PROJECT_NAME}_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/IRenderDevice.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/VulkanHelpers.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/IEvent.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/Handle.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/HandleTypeRegistry.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/Renderer.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/IDeviceContext.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/EventBus.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/SubscriberCallbackInfo.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/starlight/common/helper/CastHelpers.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IRenderDevice.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/VulkanHelpers.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IEvent.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/Handle.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/HandleTypeRegistry.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/Renderer.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IDeviceContext.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/EventBus.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/SubscriberCallbackInfo.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/helper/CastHelpers.hpp
 )
 foreach(header ${${PROJECT_NAME}_HEADERS})
     target_sources(${PROJECT_NAME} INTERFACE $<BUILD_INTERFACE:${header}>)

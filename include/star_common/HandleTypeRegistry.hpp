@@ -24,6 +24,7 @@ constexpr std::string_view PipelineTypeName = "star::pipeline";
 constexpr std::string_view SemaphoreTypeName = "star::semaphore";
 constexpr std::string_view FenceTypeName = "star::fence";
 constexpr std::string_view DeviceTypeName = "star::device";
+constexpr std::string_view DeviceContextTypeName = "star::systemcontext";
 constexpr std::string_view SubscriberTypeName = "star::subscriber";
 constexpr std::string_view ServiceCalleeTypeName = "star::service_callee";
 constexpr std::string_view CommandBufferTypeName = "star::command_buffer";
