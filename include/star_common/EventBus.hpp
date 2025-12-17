@@ -5,6 +5,7 @@
 #include "IEvent.hpp"
 #include "SubscriberCallbackInfo.hpp"
 #include "helper/CastHelpers.hpp"
+#include "core/logging/LoggingFactory.hpp"
 
 #include <absl/container/flat_hash_map.h>
 
@@ -95,18 +96,39 @@ class EventBus
 
     void unsubscribe(const Handle &subscriberHandle)
     {
-        assert(m_listeners.contains(subscriberHandle.getType()) && "Listener is not a valid registration");
+        assert(assertCheckContains(subscriberHandle));
+
         removeSubscriber(subscriberHandle, m_listeners[subscriberHandle.getType()]);
     }
 
   private:
     absl::flat_hash_map<uint16_t, std::vector<SubscriberCallbackInfo>> m_listeners;
 
+    bool assertCheckContains(const Handle &subscriberHandle)
+    {
+        const bool contains = m_listeners.contains(subscriberHandle.getType());
+        if (!contains)
+        {
+            std::ostringstream oss;
+            oss << "Listener does not exist" << std::endl;
+            oss << "The following are registered:" << std::endl;
+
+            for (const auto &type : m_listeners)
+            {
+                oss << common::HandleTypeRegistry::instance().getTypeName(type.first).value() << std::endl;
+            }
+
+            core::logging::log(boost::log::trivial::error, oss.str());
+        }
+
+        return contains;
+    }
+
     void removeSubscriber(const Handle &subscriberHandle, std::vector<SubscriberCallbackInfo> &subs)
     {
         size_t handleID = 0;
         helper::SafeCast<uint32_t, size_t>(subscriberHandle.getID(), handleID);
-        
+
         assert(handleID < subs.size() && "Handle does not correlate to any listener registered for the template type");
 
         subs[handleID].doCallbackNotifySubscriberHandleCanBeDeleted(subscriberHandle);
