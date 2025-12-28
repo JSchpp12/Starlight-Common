@@ -2,6 +2,7 @@
 
 #include "EventBus.hpp"
 #include "IDeviceContext.hpp"
+#include "FrameTracker.hpp"
 
 #include <memory>
 #include <stdint.h>
@@ -14,9 +15,9 @@ class Renderer
     struct RendererConcept
     {
         virtual ~RendererConcept() = default;
-        virtual void doPrepRender(IDeviceContext &device, const uint8_t &numFramesInFlight) = 0;
+        virtual void doPrepRender(IDeviceContext &device) = 0;
         virtual void doCleanupRender(IDeviceContext &device) = 0;
-        virtual void doFrameUpdate(IDeviceContext &device, const uint8_t &frameInFlightIndex) = 0;
+        virtual void doFrameUpdate(IDeviceContext &device) = 0;
     };
 
     template <typename T> struct RendererModel : public RendererConcept
@@ -24,22 +25,22 @@ class Renderer
         T m_renderer;
 
         template <typename U>
-        explicit RendererModel(U &&renderer) : m_renderer(std::forward<U>(renderer)) // perfect-forward into T
+        explicit RendererModel(U &&renderer) : m_renderer(std::forward<U>(renderer))
         {
         }
 
         virtual ~RendererModel() = default;
-        virtual void doPrepRender(IDeviceContext &device, const uint8_t &frameInFlightIndex) override
+        virtual void doPrepRender(IDeviceContext &device) override
         {
-            m_renderer.prepRender(device, frameInFlightIndex);
+            m_renderer.prepRender(device);
         }
         virtual void doCleanupRender(IDeviceContext &device) override
         {
             m_renderer.cleanupRender(device);
         }
-        virtual void doFrameUpdate(IDeviceContext &device, const uint8_t &frameInFlightIndex) override
+        virtual void doFrameUpdate(IDeviceContext &device) override
         {
-            m_renderer.frameUpdate(device, frameInFlightIndex);
+            m_renderer.frameUpdate(device);
         }
     };
 
@@ -64,9 +65,9 @@ class Renderer
         return *this;
     };
 
-    void prepRender(IDeviceContext &device, const uint8_t &numFramesInFlight)
+    void prepRender(IDeviceContext &device)
     {
-        m_impl->doPrepRender(device, numFramesInFlight);
+        m_impl->doPrepRender(device);
     }
 
     void cleanupRender(IDeviceContext &device)
@@ -74,9 +75,9 @@ class Renderer
         m_impl->doCleanupRender(device);
     }
 
-    void frameUpdate(IDeviceContext &device, const uint8_t &frameInFlightIndex)
+    void frameUpdate(IDeviceContext &device)
     {
-        m_impl->doFrameUpdate(device, frameInFlightIndex);
+        m_impl->doFrameUpdate(device);
     }
 
     template <typename T> T *getRaw() noexcept

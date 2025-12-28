@@ -8,7 +8,7 @@ namespace star::common
 class IEvent
 {
   public:
-    IEvent(uint16_t registeredEventType) : m_registeredEventType(std::move(registeredEventType))
+    explicit IEvent(uint16_t registeredEventType) : m_registeredEventType(std::move(registeredEventType))
     {
     }
     virtual ~IEvent() = default;

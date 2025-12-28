@@ -19,6 +19,7 @@ find_package(absl CONFIG REQUIRED)
 add_library(${PROJECT_NAME} INTERFACE)
 
 set(${PROJECT_NAME}_HEADERS
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/FrameTracker.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IRenderDevice.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/VulkanHelpers.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IEvent.hpp
