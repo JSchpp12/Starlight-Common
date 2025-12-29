@@ -48,9 +48,9 @@ class FrameTracker
             }
             uint64_t &getNumOfTimesFrameProcessed(const uint8_t &frameInFlightIndex)
             {
-                assert(frameInFlightIndex < m_numOfTimesFrameProcessed.size());
-
-                return m_numOfTimesFrameProcessed[frameInFlightIndex];
+                size_t index = static_cast<size_t>(frameInFlightIndex);
+                assert(index < m_numOfTimesFrameProcessed.size());
+                return m_numOfTimesFrameProcessed[index];
             }
             const uint64_t &getNumOfTimesFrameProcessed(const uint8_t &frameInFlightIndex) const
             {
@@ -97,6 +97,10 @@ class FrameTracker
         {
             return m_finalTargetImageIndex;
         }
+        const uint64_t &getNumTimesFrameProcessed() const
+        {
+            return m_framesInFlightTracking.getNumOfTimesFrameProcessed(m_frameInFlightIndex);
+        }
 
       private:
         friend class FrameTracker;
@@ -116,6 +120,7 @@ class FrameTracker
     void triggerIncrementForCurrentFrame()
     {
         m_current.m_globalFrameCounter++;
+        m_current.m_framesInFlightTracking.getNumOfTimesFrameProcessed(m_current.getFrameInFlightIndex())++;
     }
 
     Setup &getSetup()
