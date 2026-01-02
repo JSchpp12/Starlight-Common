@@ -23,6 +23,39 @@ concept THasGetType = requires(const T handle) {
 class EventBus
 {
   public:
+    void cleanup()
+    {
+        // Iterate with an iterator so we can erase entries cleanly.
+        for (auto it = m_listeners.begin(); it != m_listeners.end(); it++)
+        {
+            const uint16_t type = it->first;
+            auto &subs = it->second;
+
+            // Remove subscribers in reverse order to avoid reindexing cost and pitfalls.
+            while (!subs.empty())
+            {
+                // The last valid index
+                uint32_t lastId = 0;
+                {
+                    // subs.size() is size_t; convert to uint32_t safely and -1
+                    size_t lastIndex = subs.size() - 1;
+                    helper::SafeCast<size_t, uint32_t>(lastIndex, lastId);
+                }
+
+                // Construct a Handle with the current type and last index
+                Handle h{.type = type, .id = lastId};
+
+                // This triggers doCallbackNotifySubscriberHandleCanBeDeleted(subscriberHandle)
+                // and then pops the last subscriber (no shifting needed).
+                removeSubscriber(h, subs);
+            }
+
+            // Erase the now-empty bucket and advance the iterator.
+            //it = m_listeners.erase(it);
+        }
+
+    }
+
     void subscribe(const uint16_t &eventHandleType, SubscriberCallbackInfo callbackInfo)
     {
         Handle *calleeHandle = callbackInfo.doCallbackGetSubscriberHandleForUpdate();
@@ -40,6 +73,7 @@ class EventBus
         auto *handle = callbackInfo.doCallbackGetSubscriberHandleForUpdate();
         *handle = Handle{.type = eventHandleType, .id = id};
     }
+
     void subscribe(const std::string &eventName, SubscriberCallbackInfo callbackInfo)
     {
         using Registry = common::HandleTypeRegistry;
