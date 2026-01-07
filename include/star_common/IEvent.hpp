@@ -11,6 +11,10 @@ class IEvent
     explicit IEvent(uint16_t registeredEventType) : m_registeredEventType(std::move(registeredEventType))
     {
     }
+    IEvent(const IEvent &) = default;
+    IEvent &operator=(const IEvent &) = default;
+    IEvent(IEvent &&) = default;
+    IEvent &operator=(IEvent &&) = default;
     virtual ~IEvent() = default;
 
     uint16_t &getType()
