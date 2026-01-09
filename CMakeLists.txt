@@ -30,6 +30,7 @@ set(${PROJECT_NAME}_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/EventBus.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/SubscriberCallbackInfo.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/helper/CastHelpers.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/helper/FileHelpers.hpp
 )
 foreach(header ${${PROJECT_NAME}_HEADERS})
     target_sources(${PROJECT_NAME} INTERFACE $<BUILD_INTERFACE:${header}>)
