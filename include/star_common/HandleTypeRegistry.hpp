@@ -28,7 +28,8 @@ constexpr std::string_view DeviceContextTypeName = "star::systemcontext";
 constexpr std::string_view SubscriberTypeName = "star::subscriber";
 constexpr std::string_view ServiceCalleeTypeName = "star::service_callee";
 constexpr std::string_view CommandBufferTypeName = "star::command_buffer";
-constexpr std::string_view GetImageTypeName = "star::Image";
+constexpr std::string_view GetImageTypeName = "star::image";
+constexpr std::string_view QueueTypeName = "star::queue";
 } // namespace special_types
 
 class HandleTypeRegistry
