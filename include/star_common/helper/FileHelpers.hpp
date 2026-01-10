@@ -2,7 +2,12 @@
 
 #include <filesystem>
 #include <limits.h>
+
+#if defined(_WIN32)
+#include <Windows.h>
+#elif defined(__linux__)
 #include <unistd.h>
+#endif
 
 namespace star::common
 {
