@@ -17,11 +17,7 @@ class IEvent
     IEvent &operator=(IEvent &&) = default;
     virtual ~IEvent() = default;
 
-    uint16_t &getType()
-    {
-        return m_registeredEventType;
-    }
-    uint16_t getType() const
+    const uint16_t &getType() const
     {
         return m_registeredEventType;
     }

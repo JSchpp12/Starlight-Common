@@ -24,11 +24,15 @@ set(${PROJECT_NAME}_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/VulkanHelpers.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IEvent.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/Handle.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/TypeRegistry.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/HandleTypeRegistry.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/Renderer.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IDeviceContext.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/EventBus.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IServiceCommand.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/ServiceReply.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/SubscriberCallbackInfo.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/ServiceCallbackInfo.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/helper/CastHelpers.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/helper/FileHelpers.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/special_types/SpecialHandleTypes.hpp

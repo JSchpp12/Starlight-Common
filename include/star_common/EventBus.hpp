@@ -4,18 +4,16 @@
 #include "HandleTypeRegistry.hpp"
 #include "IEvent.hpp"
 #include "SubscriberCallbackInfo.hpp"
-#include "helper/CastHelpers.hpp"
 #include "core/logging/LoggingFactory.hpp"
+#include "helper/CastHelpers.hpp"
 
 #include <absl/container/flat_hash_map.h>
-
 #include <cassert>
 #include <functional>
 #include <vector>
 
 namespace star::common
 {
-
 template <typename T>
 concept THasGetType = requires(const T handle) {
     { handle.getType() } -> std::same_as<uint16_t>;
@@ -51,9 +49,8 @@ class EventBus
             }
 
             // Erase the now-empty bucket and advance the iterator.
-            //it = m_listeners.erase(it);
+            // it = m_listeners.erase(it);
         }
-
     }
 
     void subscribe(const uint16_t &eventHandleType, SubscriberCallbackInfo callbackInfo)
@@ -83,12 +80,8 @@ class EventBus
         subscribe(eventType, callbackInfo);
     }
 
-    template <typename TEvent>
-        requires THasGetType<TEvent>
-    void emit(const TEvent &event)
+    void emit(const IEvent &event)
     {
-        const auto &base = static_cast<const star::common::IEvent &>(event);
-
         std::vector<Callback> aliveCallbacks = std::vector<Callback>();
 
         if (!m_listeners.contains(event.getType()))
@@ -100,7 +93,7 @@ class EventBus
         for (size_t i = 0; i < m_listeners[event.getType()].size(); i++)
         {
             bool keepAlive = false;
-            m_listeners[event.getType()][i].doCallback(base, keepAlive);
+            m_listeners[event.getType()][i].doCallback(event, keepAlive);
 
             if (!keepAlive)
             {
