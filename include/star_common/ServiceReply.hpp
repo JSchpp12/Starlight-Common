@@ -12,7 +12,7 @@ template <class T> class ServiceReply
   public:
     void set(T value)
     {
-        m_value = std::move(value); 
+        m_value = std::move(value);
     }
 
     T &get()
