@@ -11,7 +11,7 @@
 
 namespace star::common
 {
-std::filesystem::path GetExecutablePath()
+inline std::filesystem::path GetRuntimePath()
 {
 #if defined(_WIN32)
     wchar_t buffer[MAX_PATH];
@@ -21,7 +21,7 @@ std::filesystem::path GetExecutablePath()
 #elif defined(__linux__)
     char buffer[PATH_MAX];
     ssize_t len = readlink("/proc/self/exe", buffer, sizeof(buffer));
-    return std::filesystem::path(std::string(buffer, len));
+    return std::filesystem::path(std::string(buffer, static_cast<size_t>(len)));
 
 #elif defined(__APPLE__)
     char buffer[PATH_MAX];

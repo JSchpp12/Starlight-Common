@@ -34,7 +34,7 @@ set(${PROJECT_NAME}_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/SubscriberCallbackInfo.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/ServiceCallbackInfo.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/helper/CastHelpers.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/helper/FileHelpers.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/helper/PathHelpers.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/special_types/SpecialHandleTypes.hpp
 )
 foreach(header ${${PROJECT_NAME}_HEADERS})
