@@ -31,6 +31,7 @@ set(${PROJECT_NAME}_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/EventBus.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IServiceCommand.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/ServiceReply.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IServiceCommandWIthReply.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/SubscriberCallbackInfo.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/ServiceCallbackInfo.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/helper/CastHelpers.hpp
