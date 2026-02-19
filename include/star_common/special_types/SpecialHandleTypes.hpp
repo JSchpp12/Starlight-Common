@@ -5,22 +5,22 @@
 namespace star::common::special_types
 {
 // Use constexpr std::string_view instead of std::string
-constexpr std::string_view ShaderTypeName = "star::shader";
-constexpr std::string_view ObjectTypeName = "star::object";
-constexpr std::string_view TextureTypeName = "star::texture";
-constexpr std::string_view MaterialTypeName = "star::material";
-constexpr std::string_view LightTypeName = "star::light";
-constexpr std::string_view MapTypeName = "star::map";
-constexpr std::string_view BufferTypeName = "star::buffer";
-constexpr std::string_view PipelineTypeName = "star::pipeline";
-constexpr std::string_view SemaphoreTypeName = "star::semaphore";
-constexpr std::string_view FenceTypeName = "star::fence";
-constexpr std::string_view DeviceTypeName = "star::device";
-constexpr std::string_view DeviceContextTypeName = "star::systemcontext";
-constexpr std::string_view SubscriberTypeName = "star::subscriber";
-constexpr std::string_view ServiceCalleeTypeName = "star::service_callee";
-constexpr std::string_view CommandBufferTypeName = "star::command_buffer";
-constexpr std::string_view GetImageTypeName = "star::image";
-constexpr std::string_view QueueTypeName = "star::queue";
-constexpr std::string_view CommandPoolTypeName = "star::command_pool";
+constexpr std::string_view ShaderTypeName = "stShader";
+constexpr std::string_view ObjectTypeName = "stObject";
+constexpr std::string_view TextureTypeName = "stText";
+constexpr std::string_view MaterialTypeName = "stMat";
+constexpr std::string_view LightTypeName = "stLight";
+constexpr std::string_view MapTypeName = "stMap";
+constexpr std::string_view BufferTypeName = "stBuffer";
+constexpr std::string_view PipelineTypeName = "stPipe";
+constexpr std::string_view SemaphoreTypeName = "stSema";
+constexpr std::string_view FenceTypeName = "stFence";
+constexpr std::string_view DeviceTypeName = "stDev";
+constexpr std::string_view DeviceContextTypeName = "stSysCon";
+constexpr std::string_view SubscriberTypeName = "stSub";
+constexpr std::string_view ServiceCalleeTypeName = "stScalee";
+constexpr std::string_view CommandBufferTypeName = "stCmdBuff";
+constexpr std::string_view GetImageTypeName = "stImg";
+constexpr std::string_view QueueTypeName = "stQueue";
+constexpr std::string_view CommandPoolTypeName = "stCmdPool";
 } // namespace star::common::special_types
