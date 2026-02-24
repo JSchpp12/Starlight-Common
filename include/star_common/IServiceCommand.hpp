@@ -19,12 +19,12 @@ class IServiceCommand
     IServiceCommand(IServiceCommand &&) = default;
     IServiceCommand &operator=(IServiceCommand &&) = default;
     virtual ~IServiceCommand() = default;
-
+    
     void setType(uint16_t type)
     {
         m_type = std::move(type);
     }
-    const uint16_t &getType() const
+    uint16_t getType() const
     {
         return m_type;
     }
