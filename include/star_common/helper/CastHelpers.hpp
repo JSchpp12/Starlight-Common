@@ -4,7 +4,7 @@
 #include <limits>
 #include <stdint.h>
 
-namespace star::common::helper
+namespace star::common::casts
 {
 inline static uint32_t size_t_to_unsigned_int(size_t org)
 {

@@ -9,7 +9,7 @@
 #include <unistd.h>
 #endif
 
-namespace star::common
+namespace star::common::paths
 {
 inline std::filesystem::path GetRuntimePath()
 {

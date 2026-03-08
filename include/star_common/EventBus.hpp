@@ -37,7 +37,7 @@ class EventBus
                 {
                     // subs.size() is size_t; convert to uint32_t safely and -1
                     size_t lastIndex = subs.size() - 1;
-                    helper::SafeCast<size_t, uint32_t>(lastIndex, lastId);
+                    star::common::casts::SafeCast<size_t, uint32_t>(lastIndex, lastId);
                 }
 
                 // Construct a Handle with the current type and last index
@@ -64,7 +64,7 @@ class EventBus
         m_listeners[eventHandleType].push_back(callbackInfo);
 
         uint32_t id;
-        helper::SafeCast<size_t, uint32_t>(m_listeners[eventHandleType].size(), id);
+        star::common::casts::SafeCast<size_t, uint32_t>(m_listeners[eventHandleType].size(), id);
         id--;
 
         auto *handle = callbackInfo.doCallbackGetSubscriberHandleForUpdate();
@@ -104,12 +104,12 @@ class EventBus
         if (indicesToRemove.size() > 0)
         {
             int indicesToRemoveSize;
-            helper::SafeCast<size_t, int>(indicesToRemove.size(), indicesToRemoveSize);
+            star::common::casts::SafeCast<size_t, int>(indicesToRemove.size(), indicesToRemoveSize);
 
             for (int i = indicesToRemoveSize - 1; i >= 0; i--)
             {
                 size_t index;
-                helper::SafeCast<int, size_t>(i, index);
+                star::common::casts::SafeCast<int, size_t>(i, index);
 
                 const Handle *subHandle =
                     m_listeners[event.getType()][indicesToRemove[index]].doCallbackGetSubscriberHandleForUpdate();
@@ -154,7 +154,7 @@ class EventBus
     void removeSubscriber(const Handle &subscriberHandle, std::vector<SubscriberCallbackInfo> &subs)
     {
         size_t handleID = 0;
-        helper::SafeCast<uint32_t, size_t>(subscriberHandle.getID(), handleID);
+        star::common::casts::SafeCast<uint32_t, size_t>(subscriberHandle.getID(), handleID);
 
         assert(handleID < subs.size() && "Handle does not correlate to any listener registered for the template type");
 
@@ -169,7 +169,7 @@ class EventBus
             size_t index;
             {
                 int updatedIndex = int(i) - 1;
-                helper::SafeCast<int, size_t>(updatedIndex, index);
+                star::common::casts::SafeCast<int, size_t>(updatedIndex, index);
             }
 
             if (Handle *h = subs.at(index).doCallbackGetSubscriberHandleForUpdate())
