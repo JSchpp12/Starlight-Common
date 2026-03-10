@@ -4,7 +4,7 @@
 
 namespace star::common::strings
 {
-static std::string startTime()
+inline std::string startTime()
 {
     std::time_t now = std::time(nullptr);
     // Convert to local time structure
@@ -33,7 +33,7 @@ static std::string startTime()
     return std::string(buffer);
 }
 
-std::string GetStartTime()
+inline std::string GetStartTime()
 {
     static const std::string timeValue = startTime();
     return timeValue;
