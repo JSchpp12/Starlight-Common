@@ -71,7 +71,7 @@ class EventBus
         *handle = Handle{.type = eventHandleType, .id = id};
     }
 
-    void subscribe(const std::string &eventName, SubscriberCallbackInfo callbackInfo)
+    void subscribe(std::string_view eventName, SubscriberCallbackInfo callbackInfo)
     {
         using Registry = common::HandleTypeRegistry;
 
