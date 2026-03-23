@@ -68,7 +68,7 @@ class FrameTracker
         };
 
         explicit Current(uint8_t totalNumOfFramesInFlight)
-            : m_globalFrameCounter(0), m_framesInFlightTracking(totalNumOfFramesInFlight), m_frameInFlightIndex(0),
+            : m_framesInFlightTracking(totalNumOfFramesInFlight), m_globalFrameCounter(0), m_frameInFlightIndex(0),
               m_finalTargetImageIndex(0)
         {
         }
@@ -104,8 +104,8 @@ class FrameTracker
 
       private:
         friend class FrameTracker;
-        uint64_t m_globalFrameCounter;
         FramesInFlightTracking m_framesInFlightTracking;
+        uint64_t m_globalFrameCounter;
         uint8_t m_frameInFlightIndex;
         uint8_t m_finalTargetImageIndex;
     };
