@@ -1,11 +1,16 @@
 #pragma once
 
 #include "EventBus.hpp"
-#include "IDeviceContext.hpp"
 #include "FrameTracker.hpp"
+#include "IDeviceContext.hpp"
 
 #include <memory>
 #include <stdint.h>
+
+namespace star::core::renderer
+{
+class RendererBase;
+}
 
 namespace star::common
 {
@@ -18,14 +23,15 @@ class Renderer
         virtual void doPrepRender(IDeviceContext &device) = 0;
         virtual void doCleanupRender(IDeviceContext &device) = 0;
         virtual void doFrameUpdate(IDeviceContext &device) = 0;
+        virtual core::renderer::RendererBase *doGetBase() noexcept = 0;
+        virtual const core::renderer::RendererBase *doGetBase() const noexcept = 0;
     };
 
     template <typename T> struct RendererModel : public RendererConcept
     {
         T m_renderer;
 
-        template <typename U>
-        explicit RendererModel(U &&renderer) : m_renderer(std::forward<U>(renderer))
+        template <typename U> explicit RendererModel(U &&renderer) : m_renderer(std::forward<U>(renderer))
         {
         }
 
@@ -42,6 +48,20 @@ class Renderer
         {
             m_renderer.frameUpdate(device);
         }
+        core::renderer::RendererBase *doGetBase() noexcept override
+        {
+            if constexpr (std::is_base_of_v<core::renderer::RendererBase, T>)
+                return static_cast<core::renderer::RendererBase *>(&m_renderer);
+            else
+                return nullptr;
+        }
+        const core::renderer::RendererBase *doGetBase() const noexcept override
+        {
+            if constexpr (std::is_base_of_v<core::renderer::RendererBase, T>)
+                return static_cast<const core::renderer::RendererBase *>(&m_renderer);
+            else
+                return nullptr;
+        }
     };
 
     std::unique_ptr<RendererConcept> m_impl;
@@ -52,10 +72,10 @@ class Renderer
         : m_impl(std::make_unique<RendererModel<std::decay_t<TRenderer>>>(std::forward<TRenderer>(renderer)))
     {
     }
-    
+
     Renderer(const Renderer &) = delete;
     Renderer &operator=(const Renderer &) = delete;
-    Renderer(Renderer &&other) : m_impl(std::move(other.m_impl)){};
+    Renderer(Renderer &&other) : m_impl(std::move(other.m_impl)) {};
     Renderer &operator=(Renderer &&other)
     {
         if (this != &other)
@@ -93,6 +113,15 @@ class Renderer
         if (!m_impl)
             return nullptr;
         return &static_cast<const RendererModel<T> *>(m_impl.get())->m_renderer;
+    }
+
+    core::renderer::RendererBase *getRawBase() noexcept
+    {
+        return m_impl ? m_impl->doGetBase() : nullptr;
+    }
+    const core::renderer::RendererBase *getRawBase() const noexcept
+    {
+        return m_impl ? m_impl->doGetBase() : nullptr;
     }
 };
 } // namespace star::common
