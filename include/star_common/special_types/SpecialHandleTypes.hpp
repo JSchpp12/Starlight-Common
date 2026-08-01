@@ -23,4 +23,5 @@ constexpr std::string_view CommandBufferTypeName = "stCmdBuff";
 constexpr std::string_view GetImageTypeName = "stImg";
 constexpr std::string_view QueueTypeName = "stQueue";
 constexpr std::string_view CommandPoolTypeName = "stCmdPool";
+constexpr std::string_view RenderPhaseTypeName = "stRPhase";
 } // namespace star::common::special_types

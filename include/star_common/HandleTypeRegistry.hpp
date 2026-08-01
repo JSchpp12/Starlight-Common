@@ -39,6 +39,7 @@ class HandleTypeRegistry : public TypeRegistry
         registerType(ServiceCalleeTypeName);
         registerType(CommandBufferTypeName);
         registerType(GetImageTypeName);
+        registerType(RenderPhaseTypeName);
     }
 };
 

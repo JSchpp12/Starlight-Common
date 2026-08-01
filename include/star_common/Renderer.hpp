@@ -73,6 +73,8 @@ class Renderer
     {
     }
 
+    Renderer() = default;
+
     Renderer(const Renderer &) = delete;
     Renderer &operator=(const Renderer &) = delete;
     Renderer(Renderer &&other) : m_impl(std::move(other.m_impl)) {};
@@ -87,17 +89,20 @@ class Renderer
 
     void prepRender(IDeviceContext &device)
     {
-        m_impl->doPrepRender(device);
+        if (m_impl)
+            m_impl->doPrepRender(device);
     }
 
     void cleanupRender(IDeviceContext &device)
     {
-        m_impl->doCleanupRender(device);
+        if (m_impl)
+            m_impl->doCleanupRender(device);
     }
 
     void frameUpdate(IDeviceContext &device)
     {
-        m_impl->doFrameUpdate(device);
+        if (m_impl)
+            m_impl->doFrameUpdate(device);
     }
 
     template <typename T> T *getRaw() noexcept
