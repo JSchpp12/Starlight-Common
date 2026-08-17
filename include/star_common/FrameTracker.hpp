@@ -46,19 +46,23 @@ class FrameTracker
                 : m_numOfTimesFrameProcessed(std::vector<uint64_t>((size_t)numOfFramesInFlight, uint64_t(0)))
             {
             }
-            uint64_t &getNumOfTimesFrameProcessed(const uint8_t &frameInFlightIndex)
+            uint64_t &getNumOfTimesFrameProcessed(uint8_t frameInFlightIndex) noexcept
             {
                 size_t index = static_cast<size_t>(frameInFlightIndex);
                 assert(index < m_numOfTimesFrameProcessed.size());
                 return m_numOfTimesFrameProcessed[index];
             }
-            const uint64_t &getNumOfTimesFrameProcessed(const uint8_t &frameInFlightIndex) const
+            const uint64_t &getNumOfTimesFrameProcessed(uint8_t frameInFlightIndex) const noexcept
             {
                 assert(frameInFlightIndex < m_numOfTimesFrameProcessed.size());
 
                 return m_numOfTimesFrameProcessed[frameInFlightIndex];
             }
-            size_t getSize()
+            size_t getSize() noexcept
+            {
+                return m_numOfTimesFrameProcessed.size();
+            }
+            const size_t getSize() const noexcept
             {
                 return m_numOfTimesFrameProcessed.size();
             }
@@ -123,19 +127,19 @@ class FrameTracker
         m_current.m_framesInFlightTracking.getNumOfTimesFrameProcessed(m_current.getFrameInFlightIndex())++;
     }
 
-    Setup &getSetup()
+    Setup &getSetup() noexcept
     {
         return m_setup;
     }
-    const Setup &getSetup() const
+    const Setup &getSetup() const noexcept
     {
         return m_setup;
     }
-    Current &getCurrent()
+    Current &getCurrent() noexcept
     {
         return m_current;
     }
-    const Current &getCurrent() const
+    const Current &getCurrent() const noexcept
     {
         return m_current;
     }
