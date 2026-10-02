@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(starlight_common
-    VERSION 1.0.0
+    VERSION 1.0.1
     DESCRIPTION "Common library for use across Starlight projects"
     LANGUAGES CXX
 )

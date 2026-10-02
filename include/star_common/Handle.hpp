@@ -1,7 +1,7 @@
 #pragma once
 
-#include <functional>
 #include <cstddef>
+#include <functional>
 #include <stdint.h>
 
 namespace star
@@ -23,19 +23,11 @@ struct Handle
         return type != 0;
     }
 
-    uint32_t &getID()
+    uint32_t getID() const
     {
         return id;
     }
-    const uint32_t &getID() const
-    {
-        return id;
-    }
-    uint16_t &getType()
-    {
-        return type;
-    }
-    const uint16_t &getType() const
+    uint16_t getType() const
     {
         return type;
     }

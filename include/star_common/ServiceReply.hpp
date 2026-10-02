@@ -15,7 +15,7 @@ template <class T> class ServiceReply
         m_value = std::move(value);
     }
 
-    T &get()
+    T get()
     {
         return m_value;
     }
