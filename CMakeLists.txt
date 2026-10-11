@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(starlight_common
-    VERSION 1.0.1
+    VERSION 1.1.0
     DESCRIPTION "Common library for use across Starlight projects"
     LANGUAGES CXX
 )
@@ -9,7 +9,7 @@ project(starlight_common
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -31,6 +31,7 @@ set(${PROJECT_NAME}_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/EventBus.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IServiceCommand.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/ServiceReply.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/Maker.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/IServiceCommandWithReply.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/SubscriberCallbackInfo.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/star_common/ServiceCallbackInfo.hpp
