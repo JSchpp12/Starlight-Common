@@ -3,6 +3,8 @@
 #include <concepts>
 #include <cstddef>
 #include <expected>
+#include <stdexcept>
+#include <string>
 
 namespace star::common
 {
@@ -38,5 +40,33 @@ template <Makeable T, typename E> class Maker
     /// @param num Number of values to build.
     /// @return The number of values built, or the error that occurred.
     [[nodiscard]] virtual std::expected<size_t, E> make(T *dst, size_t num) noexcept = 0;
+
+    /// @brief Build a single value and return it, throwing if make() reports an error.
+    ///
+    /// Convenience for callers that hold one configured maker and build values lazily, such as object pools.
+    [[nodiscard]] T operator()()
+    {
+        T value;
+        const auto result = make(&value, 1);
+        if (!result)
+        {
+            ThrowMakeError(result.error());
+        }
+
+        return value;
+    }
+
+  private:
+    [[noreturn]] static void ThrowMakeError(const E &error)
+    {
+        if constexpr (requires { std::string(error.detail); })
+        {
+            throw std::runtime_error(error.detail);
+        }
+        else
+        {
+            throw std::runtime_error("Maker failed to build a value");
+        }
+    }
 };
 } // namespace star::common
