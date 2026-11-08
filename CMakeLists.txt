@@ -15,7 +15,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(absl CONFIG REQUIRED)
 
-# ---- Target ----
 add_library(${PROJECT_NAME} INTERFACE)
 
 set(${PROJECT_NAME}_HEADERS
