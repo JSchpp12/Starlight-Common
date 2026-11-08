@@ -58,11 +58,7 @@ class FrameTracker
 
                 return m_numOfTimesFrameProcessed[frameInFlightIndex];
             }
-            size_t getSize() noexcept
-            {
-                return m_numOfTimesFrameProcessed.size();
-            }
-            const size_t getSize() const noexcept
+            size_t getSize() const noexcept
             {
                 return m_numOfTimesFrameProcessed.size();
             }
